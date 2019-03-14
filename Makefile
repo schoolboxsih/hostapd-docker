@@ -2,16 +2,19 @@ IMGNAME = hostapd
 IMGTAG = latest
 WLAN_INT = wlp2s0
 HOTSPOT_INT = w_ap_admin
+SSID = schoolboxadmin
 CHANNEL = 11
-.PHONY: all build test taglatest
 
-all: build test
-sloshed: kill delete
+.PHONY: all build
+
+all: build
+kill: stop delete
 
 build:
 	@docker build -t $(IMGNAME):$(IMGTAG) \
     --build-arg wlan_int=$(WLAN_INT) \
     --build-arg channel=$(CHANNEL) \
+    --build-arg ssid=$(SSID) \
     --build-arg hotspot_int=$(HOTSPOT_INT) .
 
 run:
@@ -23,11 +26,11 @@ run:
 	--net host \
 	$(IMGNAME):$(IMGTAG)
 
-kill:
-	@docker kill $(IMGNAME)_run
+start:
+	@docker start $(IMGNAME)_run
+
+stop:
+	@docker stop $(IMGNAME)_run
 
 delete:
 	@docker container rm $(IMGNAME)_run
-
-push:
-	docker push schoolboxsih/$(IMGNAME):$(VERSION)

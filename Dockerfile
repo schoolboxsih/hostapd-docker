@@ -9,6 +9,7 @@ COPY hostapd.conf /etc/hostapd.conf
 ARG wlan_int
 ARG channel
 ARG hotspot_int
+ARG ssid
 
 # define env vars
 ENV WLAN_INT $wlan_int
@@ -17,6 +18,7 @@ ENV HOTSPOT_INT $hotspot_int
 
 RUN sed -i -s "s/^interface=.*/interface=${hotspot_int}/" /etc/hostapd.conf
 RUN sed -i -s "s/^channel=.*/channel=${channel}/" /etc/hostapd.conf
+RUN sed -i -s "s/^ssid=.*/ssid=${ssid}/" /etc/hostapd.conf
 
 ADD bootstrap.sh /bin/bootstrap.sh
 

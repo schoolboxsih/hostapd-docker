@@ -13,10 +13,14 @@ sysctl net.ipv4.ip_dynaddr=1
 echo "Setting iptables for outgoing traffics on all interfaces..."
 
 # Capture external docker signals
-#trap 'true' SIGINT
-#trap 'true' SIGTERM
-#trap 'true' SIGHUP
+trap 'true' SIGINT
+trap 'true' SIGTERM
+trap 'true' SIGHUP
 
 echo "Starting HostAP daemon ..."
 
-hostapd /etc/hostapd.conf
+exec hostapd /etc/hostapd.conf
+
+#wait $!
+#
+#echo "Process ended"
