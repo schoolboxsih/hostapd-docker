@@ -20,7 +20,3 @@ trap 'true' SIGHUP
 echo "Starting HostAP daemon ..."
 
 exec hostapd /etc/hostapd.conf
-
-#wait $!
-#
-#echo "Process ended"
