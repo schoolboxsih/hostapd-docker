@@ -9,6 +9,8 @@ CHANNEL = 11
 
 all: build
 kill: stop delete
+killall: stopall deleteall
+dpush: taglatest push
 
 build:
 	@docker build -t $(IMGNAME):$(IMGTAG) \
@@ -34,3 +36,15 @@ stop:
 
 delete:
 	@docker container rm $(IMGNAME)_run
+
+deleteall:
+	@docker container rm $(shell docker ps -aq)
+
+stopall:
+	@docker stop $(shell docker ps -aq)
+
+taglatest:
+	docker tag $(IMGNAME):$(IMGTAG) schoolboxsih/$(IMGNAME):$(IMGTAG)
+
+push:
+	@docker push schoolboxsih/$(IMGNAME):$(IMGTAG)
