@@ -3,7 +3,7 @@ IMGTAG = latest
 WLAN_INT = wlp2s0
 HOTSPOT_INT = w_ap_admin
 SSID = schoolboxadmin
-CHANNEL = 11
+CHANNEL = 10
 
 .PHONY: all build
 

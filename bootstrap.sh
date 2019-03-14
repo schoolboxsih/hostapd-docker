@@ -10,7 +10,9 @@ ip link set $HOTSPOT_INT up
 sysctl net.ipv4.ip_forward=1
 sysctl net.ipv4.ip_dynaddr=1
 
-echo "Setting iptables for outgoing traffics on all interfaces..."
+sed -i -s "s/^interface=.*/interface=$HOTSPOT_INT/" /etc/hostapd.conf
+sed -i -s "s/^channel=.*/channel=$CHANNEL/" /etc/hostapd.conf
+sed -i -s "s/^ssid=.*/ssid=$SSID/" /etc/hostapd.conf
 
 # Capture external docker signals
 trap 'true' SIGINT
@@ -18,5 +20,4 @@ trap 'true' SIGTERM
 trap 'true' SIGHUP
 
 echo "Starting HostAP daemon ..."
-
 exec hostapd /etc/hostapd.conf
