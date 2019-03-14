@@ -1,4 +1,4 @@
-IMGNAME = hostapd
+IMGNAME = hostapd-schoolbox
 IMGTAG = latest
 WLAN_INT = wlp2s0
 HOTSPOT_INT = w_ap_admin
